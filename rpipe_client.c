@@ -5,7 +5,6 @@
  */
 
 #include "rpipe.h"
-#include "z85.h"
 #include "protocol.h"
 
 void
@@ -14,10 +13,13 @@ rpipe_1(char *host)
 	CLIENT *clnt;
 	int  *result_1;
 
-	struct packet pck;
-	pck.fid = 5;
-	pck.sign = '$';
-	char *msg = Z85_encode(&pck,sizeof(pck));
+	char str[] = "Hello World! ;P";
+	struct packet_t pck;
+	pck.fid = 1;
+	pck.msg_data = str;
+	pck.mgs_size = sizeof(str);
+
+	char *msg = packet2str(pck);
 
 	char * open_1_arg = msg;
 	int  *result_2;

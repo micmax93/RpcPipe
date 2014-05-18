@@ -5,7 +5,6 @@
  */
 
 #include "rpipe.h"
-#include "z85.h"
 #include "protocol.h"
 
 int *
@@ -13,8 +12,9 @@ open_1_svc(char **argp, struct svc_req *rqstp)
 {
 	static int  result;
 
-	struct packet *pck = Z85_decode(*argp);
-	printf("%i %c\n",pck->fid,pck->sign);
+	struct packet_t pck = str2packet(*argp);
+	printf("%i: %s\n",pck.fid,pck.msg_data);
+	free_packet(pck);
 	/*
 	 * insert server code here
 	 */
