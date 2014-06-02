@@ -1,0 +1,58 @@
+# depslib dependency file v1.0
+1401630063 source:/home/micmax93/git/RpcPipe/RPipeClient/rpipe_clnt.c
+	<memory.h>
+	"rpipe.h"
+
+1401630063 /home/micmax93/git/RpcPipe/RPipeClient/rpipe.h
+	<rpc/rpc.h>
+	<pthread.h>
+
+1401630063 source:/home/micmax93/git/RpcPipe/RPipeClient/rpipe_xdr.c
+	"rpipe.h"
+
+1401630063 source:/home/micmax93/git/RpcPipe/rpipe_clnt.c
+	<memory.h>
+	"rpipe.h"
+
+1401644450 /home/micmax93/git/RpcPipe/rpipe.h
+	<rpc/rpc.h>
+	<pthread.h>
+
+1401630063 source:/home/micmax93/git/RpcPipe/rpipe_xdr.c
+	"rpipe.h"
+
+1401698581 source:/home/micmax93/git/RpcPipe/rpipe_client.cpp
+	"rpipe.h"
+	"utils.h"
+
+1401698711 /home/micmax93/git/RpcPipe/utils.h
+
+1401651704 source:/home/micmax93/git/RpcPipe/z85.c
+	<stdlib.h>
+	<stdint.h>
+	<stdio.h>
+	<string.h>
+	<assert.h>
+
+1401698643 source:/home/micmax93/git/RpcPipe/rcb_server.cpp
+	"rcb.h"
+	"utils.h"
+	<string>
+
+1401630067 /home/micmax93/git/RpcPipe/rcb.h
+	<rpc/rpc.h>
+	<pthread.h>
+
+1401630068 source:/home/micmax93/git/RpcPipe/rcb_svc.c
+	"rcb.h"
+	<stdio.h>
+	<stdlib.h>
+	<rpc/pmap_clnt.h>
+	<string.h>
+	<memory.h>
+	<sys/socket.h>
+	<netinet/in.h>
+
+1401630067 source:/home/micmax93/git/RpcPipe/rcb_xdr.c
+	"rcb.h"
+
