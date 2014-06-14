@@ -73,8 +73,10 @@ char *
 Z85_encode (byte *data, size_t size)
 {
     //  Accepts only byte arrays bounded to 4 bytes
-    if (size % 4)
-        return NULL;
+    size_t true_size = size;
+    while (size % 4) {
+        size++;
+    }
 
     size_t encoded_size = size * 5 / 4;
     char *encoded = malloc (encoded_size + 1);
@@ -83,7 +85,12 @@ Z85_encode (byte *data, size_t size)
     uint32_t value = 0;
     while (byte_nbr < size) {
         //  Accumulate value in base 256 (binary)
-        value = value * 256 + data [byte_nbr++];
+        int curr=0;
+        if (byte_nbr<true_size) {
+            curr = data [byte_nbr];
+        }
+        value = value * 256 + curr;
+        byte_nbr++;
         if (byte_nbr % 4 == 0) {
             //  Output value in base 85
             uint divisor = 85 * 85 * 85 * 85;

@@ -22,24 +22,18 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="rcb.h" />
-		<Unit filename="rcb_client.cpp">
+		<Unit filename="rpipe_cmd.h" />
+		<Unit filename="rpipe_cmd_server.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="rcb_clnt.c">
+		<Unit filename="rpipe_cmd_svc.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="rcb_xdr.c">
+		<Unit filename="rpipe_data.h" />
+		<Unit filename="rpipe_data_client.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="rpipe.h" />
-		<Unit filename="rpipe_server.cpp">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="rpipe_svc.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="rpipe_xdr.c">
+		<Unit filename="rpipe_data_clnt.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="utils.h" />
