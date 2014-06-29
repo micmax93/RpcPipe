@@ -26,6 +26,7 @@
 //  DEALINGS IN THE SOFTWARE.
 //  --------------------------------------------------------------------------
 
+#include "z85.h"
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -79,7 +80,7 @@ Z85_encode (byte *data, size_t size)
     }
 
     size_t encoded_size = size * 5 / 4;
-    char *encoded = malloc (encoded_size + 1);
+    char *encoded = (char*)malloc (encoded_size + 1);
     uint char_nbr = 0;
     uint byte_nbr = 0;
     uint32_t value = 0;
@@ -119,7 +120,7 @@ Z85_decode (char *string)
         return NULL;
 
     size_t decoded_size = strlen (string) * 4 / 5;
-    byte *decoded = malloc (decoded_size);
+    byte *decoded = (byte*)malloc (decoded_size);
 
     uint byte_nbr = 0;
     uint char_nbr = 0;

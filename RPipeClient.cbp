@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-std=c++11" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -23,10 +24,13 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="rpipe_cmd.h" />
-		<Unit filename="rpipe_cmd_client.c">
+		<Unit filename="rpipe_cmd_client.cpp">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="rpipe_cmd_clnt.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="rpipe_cmd_xdr.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="rpipe_data.h" />
@@ -36,10 +40,13 @@
 		<Unit filename="rpipe_data_svc.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="utils.h" />
+		<Unit filename="rpipe_data_xdr.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="z85.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="z85.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

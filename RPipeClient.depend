@@ -1,18 +1,19 @@
 # depslib dependency file v1.0
-1402694846 source:/home/micmax93/git/RpcPipe/rpipe_cmd_clnt.c
+1404056158 source:/home/micmax93/git/RpcPipe/rpipe_cmd_clnt.c
 	<memory.h>
 	"rpipe_cmd.h"
 
-1402694846 /home/micmax93/git/RpcPipe/rpipe_cmd.h
+1403808820 /home/micmax93/git/RpcPipe/rpipe_cmd.h
 	<rpc/rpc.h>
 
-1402694342 source:/home/micmax93/git/RpcPipe/rpipe_data_server.c
+1404056211 source:/home/micmax93/git/RpcPipe/rpipe_data_server.c
 	"rpipe_data.h"
+	"z85.h"
 
-1402694342 /home/micmax93/git/RpcPipe/rpipe_data.h
+1403817261 /home/micmax93/git/RpcPipe/rpipe_data.h
 	<rpc/rpc.h>
 
-1402694685 source:/home/micmax93/git/RpcPipe/rpipe_data_svc.c
+1404056204 source:/home/micmax93/git/RpcPipe/rpipe_data_svc.c
 	"rpipe_data.h"
 	<stdio.h>
 	<stdlib.h>
@@ -21,17 +22,38 @@
 	<memory.h>
 	<sys/socket.h>
 	<netinet/in.h>
+	<errno.h>
 
-1401741575 source:/home/micmax93/git/RpcPipe/z85.c
+1402958068 source:/home/micmax93/git/RpcPipe/z85.c
+	"z85.h"
 	<stdlib.h>
 	<stdint.h>
 	<stdio.h>
 	<string.h>
 	<assert.h>
 
-1402694890 source:/home/micmax93/git/RpcPipe/rpipe_cmd_client.c
+1402742415 source:/home/micmax93/git/RpcPipe/rpipe_cmd_client.c
 	"rpipe_cmd.h"
 
-1402688809 source:/home/micmax93/git/RpcPipe/rpipe_cmd_client.cpp
+1404061698 source:/home/micmax93/git/RpcPipe/rpipe_cmd_client.cpp
 	"rpipe_cmd.h"
+	"rpipe_data.h"
+	"z85.h"
+	<unistd.h>
+	<string>
+
+1402742415 source:/home/micmax93/git/RpcPipe/rpipe_cmd_xdr.c
+	"rpipe_cmd.h"
+
+1402954250 source:/home/micmax93/git/RpcPipe/rpipe_data_server.cpp
+	"rpipe_data.h"
+	"z85.h"
+
+1402957718 /home/micmax93/git/RpcPipe/z85.h
+	<stdlib.h>
+
+1402754426 /home/micmax93/git/RpcPipe/utils.hpp
+
+1403954253 source:/home/micmax93/git/RpcPipe/rpipe_data_xdr.c
+	"rpipe_data.h"
 

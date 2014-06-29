@@ -1,18 +1,20 @@
 # depslib dependency file v1.0
-1401741575 source:/home/micmax93/git/RpcPipe/z85.c
+1402958068 source:/home/micmax93/git/RpcPipe/z85.c
+	"z85.h"
 	<stdlib.h>
 	<stdint.h>
 	<stdio.h>
 	<string.h>
 	<assert.h>
 
-1401748612 source:/home/micmax93/git/RpcPipe/rpipe_cmd_server.c
+1402738354 source:/home/micmax93/git/RpcPipe/rpipe_cmd_server.c
+	<arpa/inet.h>
 	"rpipe_cmd.h"
 
-1401745879 /home/micmax93/git/RpcPipe/rpipe_cmd.h
+1403808820 /home/micmax93/git/RpcPipe/rpipe_cmd.h
 	<rpc/rpc.h>
 
-1401826756 source:/home/micmax93/git/RpcPipe/rpipe_cmd_svc.c
+1404060323 source:/home/micmax93/git/RpcPipe/rpipe_cmd_svc.c
 	"rpipe_cmd.h"
 	<stdio.h>
 	<stdlib.h>
@@ -21,17 +23,69 @@
 	<memory.h>
 	<sys/socket.h>
 	<netinet/in.h>
+	<errno.h>
 
-1401746002 source:/home/micmax93/git/RpcPipe/rpipe_data_client.c
+1402738390 source:/home/micmax93/git/RpcPipe/rpipe_data_client.c
 	"rpipe_data.h"
 
-1401745889 /home/micmax93/git/RpcPipe/rpipe_data.h
+1403817261 /home/micmax93/git/RpcPipe/rpipe_data.h
 	<rpc/rpc.h>
 
-1401745889 source:/home/micmax93/git/RpcPipe/rpipe_data_clnt.c
+1404056369 source:/home/micmax93/git/RpcPipe/rpipe_data_clnt.c
 	<memory.h>
 	"rpipe_data.h"
 
-1401746156 source:/home/micmax93/git/RpcPipe/rpipe_cmd_server.cpp
+1404061636 source:/home/micmax93/git/RpcPipe/rpipe_cmd_server.cpp
 	"rpipe_cmd.h"
+	"rpipe_data.h"
+	"data_client.hpp"
+	"z85.h"
+	"scheduler.hpp"
+	<arpa/inet.h>
+	<fcntl.h>
+	<unistd.h>
+	<signal.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<string>
+
+1402742415 source:/home/micmax93/git/RpcPipe/rpipe_cmd_xdr.c
+	"rpipe_cmd.h"
+
+1404056358 source:/home/micmax93/git/RpcPipe/rpipe_data_client.cpp
+	"data_client.hpp"
+	"rpipe_data.h"
+	"z85.c"
+	<string>
+
+1402957718 /home/micmax93/git/RpcPipe/z85.h
+	<stdlib.h>
+
+1403819528 /home/micmax93/git/RpcPipe/data_client.hpp
+	<string>
+	"rpipe_data.h"
+
+1402958068 /home/micmax93/git/RpcPipe/z85.c
+	"z85.h"
+	<stdlib.h>
+	<stdint.h>
+	<stdio.h>
+	<string.h>
+	<assert.h>
+
+1403954253 source:/home/micmax93/git/RpcPipe/rpipe_data_xdr.c
+	"rpipe_data.h"
+
+1404056552 /home/micmax93/git/RpcPipe/scheduler.hpp
+	"rpipe_cmd.h"
+	<map>
+	<vector>
+	<string>
+	<queue>
+
+1404060890 source:/home/micmax93/git/RpcPipe/scheduler.cpp
+	"scheduler.hpp"
+
+1404057633 source:/home/micmax93/git/RpcPipe/buffer.cpp
+	"scheduler.hpp"
 

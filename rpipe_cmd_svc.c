@@ -6,19 +6,44 @@
 #include <memory.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <errno.h>
 
 #ifndef SIG_PF
 #define SIG_PF void(*)(int)
 #endif
 
+static int *
+_rpipe_open_1 (rpipe_open_1_argument *argp, struct svc_req *rqstp)
+{
+	return (rpipe_open_1_svc(argp->cbprog_id, argp->flag, rqstp));
+}
+
+static int *
+_rpipe_close_1 (int  *argp, struct svc_req *rqstp)
+{
+	return (rpipe_close_1_svc(*argp, rqstp));
+}
+
+static int *
+_rpipe_write_1 (rpipe_write_1_argument *argp, struct svc_req *rqstp)
+{
+	return (rpipe_write_1_svc(argp->fid, argp->data_size, rqstp));
+}
+
+static int *
+_rpipe_read_1 (rpipe_read_1_argument *argp, struct svc_req *rqstp)
+{
+	return (rpipe_read_1_svc(argp->fid, argp->max_size, rqstp));
+}
+
 static void
 rpipe_cmd_1(struct svc_req *rqstp, register SVCXPRT *transp)
 {
 	union {
-		int rpipe_open_r_1_arg;
-		int rpipe_open_w_1_arg;
-		int rpipe_write_1_arg;
-		int rpipe_read_1_arg;
+		rpipe_open_1_argument rpipe_open_1_arg;
+		int rpipe_close_1_arg;
+		rpipe_write_1_argument rpipe_write_1_arg;
+		rpipe_read_1_argument rpipe_read_1_arg;
 	} argument;
 	char *result;
 	xdrproc_t _xdr_argument, _xdr_result;
@@ -29,34 +54,28 @@ rpipe_cmd_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		(void) svc_sendreply (transp, (xdrproc_t) xdr_void, (char *)NULL);
 		return;
 
-	case rpipe_open_r:
-		_xdr_argument = (xdrproc_t) xdr_int;
+	case rpipe_open:
+		_xdr_argument = (xdrproc_t) xdr_rpipe_open_1_argument;
 		_xdr_result = (xdrproc_t) xdr_int;
-		local = (char *(*)(char *, struct svc_req *)) rpipe_open_r_1_svc;
-		break;
-
-	case rpipe_open_w:
-		_xdr_argument = (xdrproc_t) xdr_int;
-		_xdr_result = (xdrproc_t) xdr_int;
-		local = (char *(*)(char *, struct svc_req *)) rpipe_open_w_1_svc;
+		local = (char *(*)(char *, struct svc_req *)) _rpipe_open_1;
 		break;
 
 	case rpipe_close:
-		_xdr_argument = (xdrproc_t) xdr_void;
+		_xdr_argument = (xdrproc_t) xdr_int;
 		_xdr_result = (xdrproc_t) xdr_int;
-		local = (char *(*)(char *, struct svc_req *)) rpipe_close_1_svc;
+		local = (char *(*)(char *, struct svc_req *)) _rpipe_close_1;
 		break;
 
 	case rpipe_write:
-		_xdr_argument = (xdrproc_t) xdr_int;
+		_xdr_argument = (xdrproc_t) xdr_rpipe_write_1_argument;
 		_xdr_result = (xdrproc_t) xdr_int;
-		local = (char *(*)(char *, struct svc_req *)) rpipe_write_1_svc;
+		local = (char *(*)(char *, struct svc_req *)) _rpipe_write_1;
 		break;
 
 	case rpipe_read:
-		_xdr_argument = (xdrproc_t) xdr_int;
+		_xdr_argument = (xdrproc_t) xdr_rpipe_read_1_argument;
 		_xdr_result = (xdrproc_t) xdr_int;
-		local = (char *(*)(char *, struct svc_req *)) rpipe_read_1_svc;
+		local = (char *(*)(char *, struct svc_req *)) _rpipe_read_1;
 		break;
 
 	default:
@@ -78,6 +97,32 @@ rpipe_cmd_1(struct svc_req *rqstp, register SVCXPRT *transp)
 	}
 	return;
 }
+
+void svc_run_once()
+{
+    fd_set readfds = svc_fdset;
+    int done = FALSE;
+    int fd;
+    while(!done)
+    {
+        fd = select(_rpc_dtablesize(), &readfds, NULL, NULL, NULL);
+        switch (fd)
+        {
+        case -1:
+            if (errno == EINTR) continue;
+            perror("svc_run: - select failed");
+            done = TRUE;
+            break;
+        case 0:
+            continue;
+        default:
+            svc_getreqset(&readfds);
+            done = TRUE;
+            break;
+        }
+    }
+}
+
 
 int
 main (int argc, char **argv)
@@ -106,8 +151,14 @@ main (int argc, char **argv)
 		exit(1);
 	}
 
-	svc_run ();
+    while(1)
+    {
+        printf("# Dispatcher\n");
+        svc_run_once();
+        printf("# Scheduler\n");
+        run_jobs();
+    }
+
 	fprintf (stderr, "%s", "svc_run returned");
 	exit (1);
-	/* NOTREACHED */
 }

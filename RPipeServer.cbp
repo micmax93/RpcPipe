@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-std=c++11" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -20,26 +21,37 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-std=c++11" />
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="buffer.cpp" />
+		<Unit filename="data_client.hpp" />
 		<Unit filename="rpipe_cmd.h" />
-		<Unit filename="rpipe_cmd_server.c">
+		<Unit filename="rpipe_cmd_server.cpp">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="rpipe_cmd_svc.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="rpipe_cmd_xdr.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="rpipe_data.h" />
-		<Unit filename="rpipe_data_client.c">
+		<Unit filename="rpipe_data_client.cpp">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="rpipe_data_clnt.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="utils.h" />
+		<Unit filename="rpipe_data_xdr.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="scheduler.cpp" />
+		<Unit filename="scheduler.hpp" />
 		<Unit filename="z85.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="z85.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

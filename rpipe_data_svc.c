@@ -12,12 +12,30 @@
 #define SIG_PF void(*)(int)
 #endif
 
+static u_int *
+_rpipe_put_1 (rpipe_put_1_argument *argp, struct svc_req *rqstp)
+{
+	return (rpipe_put_1_svc(argp->data, argp->data_size, rqstp));
+}
+
+static char **
+_rpipe_get_1 (u_int  *argp, struct svc_req *rqstp)
+{
+	return (rpipe_get_1_svc(*argp, rqstp));
+}
+
+static int *
+_rpipe_info_1 (int  *argp, struct svc_req *rqstp)
+{
+	return (rpipe_info_1_svc(*argp, rqstp));
+}
+
 static void
 rpipe_data_1(struct svc_req *rqstp, register SVCXPRT *transp)
 {
 	union {
-		char *rpipe_put_1_arg;
-		int rpipe_get_1_arg;
+		rpipe_put_1_argument rpipe_put_1_arg;
+		u_int rpipe_get_1_arg;
 		int rpipe_info_1_arg;
 	} argument;
 	char *result;
@@ -30,21 +48,21 @@ rpipe_data_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		return;
 
 	case rpipe_put:
-		_xdr_argument = (xdrproc_t) xdr_wrapstring;
-		_xdr_result = (xdrproc_t) xdr_int;
-		local = (char *(*)(char *, struct svc_req *)) rpipe_put_1_svc;
+		_xdr_argument = (xdrproc_t) xdr_rpipe_put_1_argument;
+		_xdr_result = (xdrproc_t) xdr_u_int;
+		local = (char *(*)(char *, struct svc_req *)) _rpipe_put_1;
 		break;
 
 	case rpipe_get:
-		_xdr_argument = (xdrproc_t) xdr_int;
+		_xdr_argument = (xdrproc_t) xdr_u_int;
 		_xdr_result = (xdrproc_t) xdr_wrapstring;
-		local = (char *(*)(char *, struct svc_req *)) rpipe_get_1_svc;
+		local = (char *(*)(char *, struct svc_req *)) _rpipe_get_1;
 		break;
 
 	case rpipe_info:
 		_xdr_argument = (xdrproc_t) xdr_int;
 		_xdr_result = (xdrproc_t) xdr_int;
-		local = (char *(*)(char *, struct svc_req *)) rpipe_info_1_svc;
+		local = (char *(*)(char *, struct svc_req *)) _rpipe_info_1;
 		break;
 
 	default:
@@ -127,6 +145,38 @@ void _cb_run()
 
 int
 _rpipe_run_data_svc (int argc, char **argv)
+{
+	register SVCXPRT *transp;
+
+	pmap_unset (rpipe_data, v1);
+
+	transp = svcudp_create(RPC_ANYSOCK);
+	if (transp == NULL) {
+		fprintf (stderr, "%s", "cannot create udp service.");
+		exit(1);
+	}
+	if (!svc_register(transp, rpipe_data, v1, rpipe_data_1, IPPROTO_UDP)) {
+		fprintf (stderr, "%s", "unable to register (rpipe_data, v1, udp).");
+		exit(1);
+	}
+
+	transp = svctcp_create(RPC_ANYSOCK, 0, 0);
+	if (transp == NULL) {
+		fprintf (stderr, "%s", "cannot create tcp service.");
+		exit(1);
+	}
+	if (!svc_register(transp, rpipe_data, v1, rpipe_data_1, IPPROTO_TCP)) {
+		fprintf (stderr, "%s", "unable to register (rpipe_data, v1, tcp).");
+		exit(1);
+	}
+
+	svc_run ();
+	fprintf (stderr, "%s", "svc_run returned");
+	exit (1);
+}
+
+int
+_old_svc_main_loop (int argc, char **argv)
 {
 	register SVCXPRT *transp;
 
