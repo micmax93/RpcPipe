@@ -123,9 +123,7 @@ void svc_run_once()
     }
 }
 
-
-int
-main (int argc, char **argv)
+void register_cmd_server()
 {
 	register SVCXPRT *transp;
 
@@ -150,15 +148,4 @@ main (int argc, char **argv)
 		fprintf (stderr, "%s", "unable to register (rpipe_cmd, v1, tcp).");
 		exit(1);
 	}
-
-    while(1)
-    {
-        printf("# Dispatcher\n");
-        svc_run_once();
-        printf("# Scheduler\n");
-        run_jobs();
-    }
-
-	fprintf (stderr, "%s", "svc_run returned");
-	exit (1);
 }

@@ -1,6 +1,6 @@
 #include "data_client.hpp"
 #include "rpipe_data.h"
-#include "z85.c"
+#include "z85.h"
 #include<string>
 using namespace std;
 

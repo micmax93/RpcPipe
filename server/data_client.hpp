@@ -1,5 +1,5 @@
-#ifndef _UTILS_HPP
-#define _UTILS_HPP
+#ifndef _DATACLNT_HPP
+#define _DATACLNT_HPP
 
 #include <string>
 #include "rpipe_data.h"
